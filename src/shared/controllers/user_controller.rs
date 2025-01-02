@@ -1,6 +1,6 @@
 use rocket::serde::json::Json;
 use crate::domain::repositories::user_repository::UserRepository;
-use crate::infrastructure::repositories::user_repository_impl::UserRepositoryImpl;
+use crate::domain::repositories::user_repository_impl::UserRepositoryImpl;
 use crate::shared::dto::user_dto::UserDTO;
 
 #[get("/user/list")]
