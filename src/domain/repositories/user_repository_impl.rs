@@ -1,29 +1,44 @@
 use crate::domain::entities::user_entity::User;
 use crate::domain::repositories::user_repository::UserRepository;
 use async_trait::async_trait;
+use sqlx::postgres::PgPool;
 
-pub struct UserRepositoryImpl;
+pub struct UserRepositoryImpl {
+    pub pool: PgPool,
+}
 
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
     async fn find_all(&self) -> Vec<User> {
-        // Simulasi data
-        vec![
-            User { id: 1, name: "John Doe".to_string(), email: "john@example.com".to_string() },
-            User { id: 2, name: "Jane Doe".to_string(), email: "jane@example.com".to_string() },
-        ]
+        let users = sqlx::query_as!(
+            User,
+            r#"
+            SELECT id, name, email
+            FROM users
+            "#
+        )
+            .fetch_all(&self.pool)
+            .await
+            .unwrap_or_else(|_| vec![]); // Handle error dengan mengembalikan list kosong
+
+        users
     }
 
     async fn find_by_id(&self, id: i32) -> Option<User> {
-        // Simulasi pencarian user
-        if id == 1 {
-            Some(User {
-                id: 1,
-                name: "John Doe".to_string(),
-                email: "john@example.com".to_string(),
-            })
-        } else {
-            None
-        }
+        let user = sqlx::query_as!(
+            User,
+            r#"
+            SELECT id, name, email
+            FROM users
+            WHERE id = $1
+            "#,
+            id
+        )
+            .fetch_optional(&self.pool)
+            .await
+            .ok()
+            .flatten(); // Handle error dengan mengembalikan None jika gagal
+
+        user
     }
 }
