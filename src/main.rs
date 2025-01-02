@@ -3,6 +3,7 @@
 mod domain;
 mod shared;
 mod infrastructure;
+mod common;
 
 use infrastructure::database::db::init_db_pool;
 use crate::domain::repositories::user_repository_impl::UserRepositoryImpl;
