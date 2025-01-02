@@ -7,8 +7,8 @@ pub struct UserDTO {
     pub email: String,
 }
 
-impl From<crate::domain::entities::user::User> for UserDTO {
-    fn from(user: crate::domain::entities::user::User) -> Self {
+impl From<crate::domain::entities::user_entity::User> for UserDTO {
+    fn from(user: crate::domain::entities::user_entity::User) -> Self {
         UserDTO {
             id: user.id,
             name: user.name,

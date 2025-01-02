@@ -1,7 +1,7 @@
 use rocket::serde::json::Json;
 use crate::domain::repositories::user_repository::UserRepository;
 use crate::infrastructure::repositories::user_repository_impl::UserRepositoryImpl;
-use crate::presentation::dto::user_dto::UserDTO;
+use crate::shared::dto::user_dto::UserDTO;
 
 #[get("/user/list")]
 pub async fn list_users() -> Json<Vec<UserDTO>> {

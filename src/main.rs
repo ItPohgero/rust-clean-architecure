@@ -2,6 +2,7 @@
 
 mod domain;
 mod shared;
+mod infrastructure;
 
 #[launch]
 fn rocket() -> _ {

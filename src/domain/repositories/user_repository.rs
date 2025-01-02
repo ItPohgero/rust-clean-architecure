@@ -1,4 +1,4 @@
-use crate::domain::entities::user::User;
+use crate::domain::entities::user_entity::User;
 use async_trait::async_trait;
 
 #[async_trait]
